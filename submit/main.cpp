@@ -132,7 +132,7 @@ class AVL{
     }
 
     Node<T>* getAVLNode() {
-        return new Node<T>*;
+        return new Node<T>;
     }
 
     void rotateTree(int rotateType, Node<T>* p, Node<T>* q) {
@@ -366,6 +366,4 @@ int main() {
             else cout << "d " << key << ": The key does not exist\n";
         }   
     }
-
-    avl.clear();
 }
