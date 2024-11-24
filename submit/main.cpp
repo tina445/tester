@@ -366,4 +366,6 @@ int main() {
             else cout << "d " << key << ": The key does not exist\n";
         }   
     }
+
+    avl.clear();
 }
