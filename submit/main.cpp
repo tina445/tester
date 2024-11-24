@@ -20,7 +20,7 @@ struct Node {
     Node* right;
     int bf;
 
-    Node(T key_=0) : key(key_), left(nullptr), right(nullptr), bf(0) {}
+    Node(T key_=0) : key(key_), left(nullptr), right(nullptr){}
 };
 
 template <typename T>
@@ -131,6 +131,10 @@ class AVL{
         return true;
     }
 
+    Node<T>* getAVLNode() {
+        return new Node<T>*;
+    }
+
     void rotateTree(int rotateType, Node<T>* p, Node<T>* q) {
         Node<T>* a;
         Node<T>* b;
@@ -187,10 +191,6 @@ public:
     ~AVL() { clear(); }
 
     bool insertAVL(T newKey) {
-        bool inserted = insertBST(newKey);
-
-        if (!inserted) return false;
-
         stack<Node<T>*> stk;
 
         Node<T>* p = this->root;
@@ -199,7 +199,7 @@ public:
         Node<T>* f = nullptr; // unbalnaced node's parent
 
         while (p != nullptr) { // find path to inserted node
-            if (newKey == p->key) break;
+            if (newKey == p->key) return false;
 
             q = p;
             stk.push(q);
@@ -208,6 +208,12 @@ public:
             else p = p->right;
         } 
         
+        Node<T>* t = getBSTNode();
+        t->key = newKey;
+
+        if (root == nullptr) root = t;
+        else if (newKey < q->key) q->left = t;
+        else q->right = t;
 
         while (!stk.empty()) { // check balance
             q = stk.top();
